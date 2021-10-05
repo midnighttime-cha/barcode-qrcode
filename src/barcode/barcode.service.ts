@@ -8,7 +8,10 @@ export class BarcodeService {
   async genBarcode(query: any = null) {
     try {
       if (query) {
-        const { format, text, background, lineColor, textMargin, textAlign, textPosition, margin, marginBottom, marginTop, fontOptions, font, fontSize } = query;
+        const {
+          format, text, marginBottom, width, height, fontOptions, font, textAlign, textPosition,
+          textMargin, fontSize, background, lineColor, margin, marginLeft, marginTop
+        } = query;
 
         if (typeof text !== "undefined") {
           let options = {};
@@ -16,12 +19,23 @@ export class BarcodeService {
 
           if (typeof format !== "undefined") {
             options['format'] = format;
+            if (format === "EAN8" || format === "EAN13") {
+              options['flat'] = true;
+            }
           } else {
             options['format'] = "CODE128";
           }
 
           if (typeof text !== "undefined") {
             options['text'] = text.split('\n').join(' ');
+          }
+
+          if (typeof width !== "undefined") {
+            options['width'] = width;
+          }
+
+          if (typeof height !== "undefined") {
+            options['height'] = height;
           }
 
           if (typeof background !== "undefined") {
@@ -44,6 +58,10 @@ export class BarcodeService {
 
           if (typeof margin !== "undefined") {
             options['margin'] = margin;
+          }
+
+          if (typeof marginLeft !== "undefined") {
+            options['marginLeft'] = marginLeft;
           }
 
           if (typeof marginBottom !== "undefined") {
