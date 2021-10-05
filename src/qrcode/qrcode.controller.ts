@@ -16,7 +16,9 @@ export class QrcodeController {
   async genBarcode(@Res() res, @Query() query) {
     const responseData = await this.qrCodeService.genQrcode(query);
     const resBase64 = `${responseData}`.replace(/^data:image\/png;base64,/, "");
-    await fs.writeFileSync(`./files/qrcode/${query.text}.png`, resBase64, 'base64');
+    if (!fs.existsSync(`./files/qrcode/${query.text}.png`)) {
+      await fs.writeFileSync(`./files/qrcode/${query.text}.png`, resBase64, 'base64');
+    }
     return await res.status(HttpStatus.OK).sendFile(`${query.text}.png`, { root: "./files/qrcode/" });
   }
 }
