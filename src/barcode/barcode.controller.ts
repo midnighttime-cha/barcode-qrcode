@@ -3,9 +3,6 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiQuery } from '@nestjs/swagger';
 import { BarcodeService } from './barcode.service';
 const fs = require('fs');
-const JsBarcode = require('jsbarcode');
-const { createCanvas } = require("canvas");
-const base64ToImage = require('base64-to-image');
 
 @Controller('barcode')
 export class BarcodeController {

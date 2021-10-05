@@ -1,6 +1,7 @@
-import { Controller, Get, Logger, Query, Res } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Logger, Query, Res } from '@nestjs/common';
 import { ApiQuery } from '@nestjs/swagger';
 import { QrcodeService } from './qrcode.service';
+const fs = require('fs');
 
 @Controller('qrcode')
 export class QrcodeController {
@@ -14,9 +15,8 @@ export class QrcodeController {
   @Get()
   async genBarcode(@Res() res, @Query() query) {
     const responseData = await this.qrCodeService.genQrcode(query);
-    res.write('<html><body>');
-    res.write(`<img src="${responseData}" />`);
-    res.write('</body></html>');
-    return res.end();
+    const resBase64 = `${responseData}`.replace(/^data:image\/png;base64,/, "");
+    await fs.writeFileSync(`./files/qrcode/${query.text}.png`, resBase64, 'base64');
+    return await res.status(HttpStatus.OK).sendFile(`${query.text}.png`, { root: "./files/qrcode/" });
   }
 }

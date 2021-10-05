@@ -72,7 +72,6 @@ export class BarcodeService {
 
           await JsBarcode(canvasDOM, text, options);
 
-          // return await base64ToImage(`${await canvasDOM.toDataURL('image/png')}`, "./files/barcode/", { 'fileName': `${query.text}.png`, 'type': 'png' });
           return await `${canvasDOM.toDataURL('image/png')}`.replace(/^data:image\/png;base64,/, "");
         } else {
           throw new HttpException("Undefined param require.", HttpStatus.BAD_REQUEST);
