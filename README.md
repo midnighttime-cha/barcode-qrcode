@@ -6,4 +6,5 @@ sh deploy.sh
 ```
 
 # อ้างอิง
-- (https://www.npmjs.com/package/qrcode)[node-qrcodeล
+- [node-qrcode](https://www.npmjs.com/package/qrcode)
+- [jsbarcode](https://www.npmjs.com/package/jsbarcode)
