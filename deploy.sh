@@ -5,6 +5,6 @@ docker rmi nestjs-barcode-qrcode || true
 docker build -t nestjs-barcode-qrcode .
 docker run -d -p 3007:3000 \
 --restart=always \
--v $(pwd)/log:/app/_logfile \
+-v $(pwd)/logs:/app/logs \
 --name barcode-qrcode \
 nestjs-barcode-qrcode
