@@ -6,6 +6,7 @@ const port = 3000;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.setGlobalPrefix('v1');
   await app.listen(port);
 
   await Logger.warn("==============================")
